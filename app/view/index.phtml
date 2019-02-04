@@ -1,5 +1,23 @@
-<p>This is index.phtml</p>
+<form method="post" action="<?php echo App::config('url') ?>Index/newPost">
+
+    <div class="form-group">
+        <label for="content">What's on your mind?</label>
+        <input id="content" name="content">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+
+
+
+
+
 
 <?php foreach ($posts as $post): ?>
-    <p><?= htmlspecialchars($post) ?></p>
+    <p>
+        <a href="<?php echo App::config('url') ?>Index/view/<?= $post->getId() ?> ">
+            <?= htmlspecialchars($post->getContent()) ?>
+        </a>
+    </p>
 <?php endforeach; ?>

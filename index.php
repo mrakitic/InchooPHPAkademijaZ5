@@ -8,6 +8,7 @@ ini_set('display_errors', 1);
 
 $includePaths = implode(PATH_SEPARATOR, array(
     BP . 'app/model',
+    BP . 'app/model/entity',
     BP . 'app/controller',
 ));
 
@@ -16,10 +17,11 @@ set_include_path($includePaths);
 spl_autoload_register(function ($class) {
 
     $classPath = strtr($class, '\\', DIRECTORY_SEPARATOR) . '.php';
-
-    if(file_exists("app/model/" . $classPath) || file_exists("app/controller/" . $classPath)){
-        include $classPath;
+    if ($file = stream_resolve_include_path($classPath)) {
+        include $file;
+        return true;
     }
+    return false;
 });
 
 App::start();
